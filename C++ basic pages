@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <opencv2/opencv.hpp> // OpenCV for image processing
+
+class ClothingItem {
+public:
+    std::string name;
+    std::string size;
+    std::string color;
+    std::vector<std::string> tags;
+    std::string imagePath;
+
+    ClothingItem(std::string n, std::string s, std::string c, std::string img)
+        : name(n), size(s), color(c), imagePath(img) {
+        generateTags();
+    }
+
+    void generateTags() {
+        // Simulate AI processing with a simple logic
+        tags.push_back("fashionable");
+        if (color == "red") tags.push_back("bold");
+        if (size == "L") tags.push_back("comfortable");
+    }
+
+    void displayItem() {
+        std::cout << "Item: " << name << " | Size: " << size << " | Color: " << color << "\n";
+        std::cout << "Tags: ";
+        for (const auto& tag : tags) {
+            std::cout << tag << " ";
+        }
+        std::cout << "\n";
+    }
+};
+
+class SwapPlatform {
+public:
+    std::vector<ClothingItem> items;
+
+    void addItem(const ClothingItem& item) {
+        items.push_back(item);
+        std::cout << "Added: " << item.name << "\n";
+    }
+
+    void listItems() {
+        std::cout << "\nAvailable Items:\n";
+        for (const auto& item : items) {
+            item.displayItem();
+        }
+    }
+};
+
+int main() {
+    SwapPlatform platform;
+    platform.addItem(ClothingItem("Jeans", "M", "blue", "jeans.jpg"));
+    platform.addItem(ClothingItem("T-shirt", "L", "red", "tshirt.jpg"));
+    
+    platform.listItems();
+    return 0;
+}
